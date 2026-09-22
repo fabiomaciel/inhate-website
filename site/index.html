@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>InHate — Tributo ao Korn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;600&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ------- HOME-ONLY ------- */
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      padding: 140px 28px 80px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+      overflow: hidden;
+      background:
+              radial-gradient(1200px 700px at 80% 20%, rgba(132,54,226,0.22), transparent 60%),
+              radial-gradient(900px 500px at 10% 90%, rgba(185,143,240,0.08), transparent 60%),
+              var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+              linear-gradient(to right, var(--line) 1px, transparent 1px),
+              linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      pointer-events: none;
+    }
+
+    .hero__meta {
+      display: flex; gap: 18px; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .hero__meta .pulse {
+      width: 8px; height: 8px; background: var(--rust); border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(132,54,226,0.7);
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(132,54,226,0.6); }
+      70%  { box-shadow: 0 0 0 10px rgba(132,54,226,0); }
+      100% { box-shadow: 0 0 0 0 rgba(132,54,226,0); }
+    }
+
+    .hero__title {
+      font-family: 'Big Shoulders Stencil Display', sans-serif;
+      font-weight: 900;
+      font-size: clamp(72px, 11vw, 168px);
+      line-height: 0.82;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .hero__title .stroke {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--ink-faint);
+      display: block;
+    }
+    .hero__title .rust {
+      color: var(--rust);
+      font-style: italic;
+      display: inline-block;
+      transform: skewX(-6deg);
+    }
+
+    .hero__sub {
+      color: var(--ink-dim);
+      max-width: 480px;
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+      position: relative;
+    }
+    .hero__sub strong { color: var(--ink); font-weight: 500; }
+
+    .hero__actions { display: flex; gap: 16px; flex-wrap: wrap; position: relative; }
+
+    .hero__visual {
+      position: relative;
+      aspect-ratio: 3/4;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero__visual::before {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+              repeating-linear-gradient(45deg, rgba(132,54,226,0.08) 0 2px, transparent 2px 14px);
+      border: 1px solid var(--line-strong);
+    }
+    .hero__visual img {
+      width: 88%;
+      animation: floaty 6s ease-in-out infinite;
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50%      { transform: translateY(-10px) rotate(0.4deg); }
+    }
+    .hero__corner {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+    }
+    .hero__corner.tl { top: 12px; left: 12px; }
+    .hero__corner.tr { top: 12px; right: 12px; }
+    .hero__corner.bl { bottom: 12px; left: 12px; }
+    .hero__corner.br { bottom: 12px; right: 12px; }
+
+    /* readout strip */
+    .readout {
+      position: absolute;
+      bottom: 24px; left: 28px; right: 28px;
+      display: flex; gap: 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--ink-faint);
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+    .readout span strong { color: var(--ink); font-weight: 500; }
+
+    /* ABOUT BAND */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about h2 {
+      font-size: clamp(48px, 6vw, 92px);
+      margin-bottom: 24px;
+    }
+    .about__lead {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--bone);
+      margin-bottom: 24px;
+    }
+    .about p { color: var(--ink-dim); margin-bottom: 18px; max-width: 60ch; }
+    .about__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px; border-top: 1px solid var(--line); }
+    .about__stat { padding: 24px 0; border-right: 1px solid var(--line); }
+    .about__stat:last-child { border-right: 0; }
+    .about__stat__num {
+      font-family: 'Big Shoulders Stencil Display', sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      line-height: 1;
+      color: var(--rust);
+    }
+    .about__stat__lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--ink-dim); margin-top: 8px;
+    }
+
+    /* MEMBERS */
+    .members__head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 60px; }
+    .members__head h2 { font-size: clamp(48px, 6vw, 92px); }
+    .members__head p { color: var(--ink-dim); max-width: 320px; }
+    .members__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--line-strong);
+      border: 1px solid var(--line-strong);
+    }
+    .member {
+      background: var(--bg-2);
+      padding: 28px 24px;
+      position: relative;
+      transition: background .25s;
+      cursor: pointer;
+      aspect-ratio: 3/4;
+      display: flex; flex-direction: column; justify-content: space-between;
+      overflow: hidden;
+    }
+    .member:hover { background: var(--bg-3); }
+    .member__portrait {
+      position: absolute; inset: 0;
+      background:
+              repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 6px),
+              linear-gradient(180deg, var(--bg-3) 0%, var(--bg) 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink-faint);
+      font-family: 'JetBrains Mono', monospace; font-size: 9px;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      overflow: hidden;
+    }
+    .member__portrait img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(0.5) contrast(1.05) brightness(0.7);
+      transition: filter .35s, transform .5s;
+    }
+    .member:hover .member__portrait img {
+      filter: grayscale(0) contrast(1.1) brightness(0.95);
+      transform: scale(1.04);
+    }
+    .member__portrait::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .member__portrait::after {
+      content: "";
+      position: absolute; inset: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      z-index: 1;
+      pointer-events: none;
+      transition: border-color .3s;
+    }
+    .member:hover .member__portrait::after { border-color: var(--rust); }
+    .member__num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--ink-dim); letter-spacing: 0.25em;
+      position: relative; z-index: 3;
+    }
+    .member__info { position: relative; z-index: 3; }
+    .member__name {
+      font-family: 'Big Shoulders Stencil Display', sans-serif;
+      font-weight: 900; font-size: 22px; line-height: 0.95;
+      color: var(--ink); text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .member__role {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px;
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--rust);
+    }
+    .member__ig {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; letter-spacing: 0.05em;
+      color: var(--ink-dim);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      transition: color .2s;
+      text-transform: lowercase;
+    }
+    .member__ig::before {
+      content: "↗";
+      font-family: 'Big Shoulders Stencil Display', sans-serif;
+      color: var(--rust);
+      font-size: 13px;
+      transform: translateY(-1px);
+    }
+    .member:hover .member__ig { color: var(--ink); }
+
+    /* DATES PREVIEW */
+    .dates__head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 48px; }
+    .dates__head h2 { font-size: clamp(48px, 6vw, 92px); }
+    .dates__list { border-top: 1px solid var(--line); }
+    .date {
+      display: grid;
+      grid-template-columns: 80px 1fr 2fr 1fr;
+      gap: 32px;
+      padding: 28px 8px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      transition: background .2s, padding .2s;
+      position: relative;
+    }
+    .date:hover { background: var(--bg-3); padding-left: 24px; }
+    .date::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--rust); transform: scaleY(0); transition: transform .25s;
+      transform-origin: top;
+    }
+    .date:hover::before { transform: scaleY(1); }
+    .date__day {
+      font-family: 'Big Shoulders Stencil Display', sans-serif;
+      font-weight: 900; font-size: 56px; line-height: 1; color: var(--ink);
+    }
+    .date__month {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-dim);
+      margin-top: 4px;
+    }
+    .date__venue {
+      font-family: 'Big Shoulders Stencil Display', sans-serif;
+      font-weight: 900; font-size: 28px; text-transform: uppercase; line-height: 1;
+    }
+    .date__city {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      color: var(--ink-dim); margin-top: 6px; letter-spacing: 0.1em;
+    }
+    .date__tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .date__status {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      letter-spacing: 0.25em; text-transform: uppercase;
+    }
+    .date__status.sold { color: var(--rust); }
+    .date__status.open { color: var(--acid); }
+    .date__status.realizado { color: var(--ink-faint); }
+    .date__status.free { color: #52b269; font-weight: 600; }
+    .date--past { opacity: 0.55; }
+    .date--past:hover { opacity: 0.85; }
+    .date--past .date__day,
+    .date--past .date__venue { text-decoration: line-through; text-decoration-color: var(--ink-faint); text-decoration-thickness: 1px; }
+    .date__cta {
+      font-family: 'Big Shoulders Stencil Display', sans-serif;
+      font-weight: 900; font-size: 14px; letter-spacing: 0.2em;
+      text-transform: uppercase; padding: 12px 18px;
+      border: 1px solid var(--line-strong); color: var(--ink);
+      transition: all .2s;
+    }
+    .date:hover .date__cta { border-color: var(--ink); }
+    .date__cta:hover { background: var(--ink); color: var(--bg); }
+
+    /* SOCIAL CTA */
+    .social {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line-strong);
+      border: 1px solid var(--line-strong);
+    }
+    .social__cta {
+      background: var(--bg);
+      padding: 60px;
+    }
+    .social__grid {
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line-strong);
+    }
+    .social__item {
+      background: var(--bg-2);
+      padding: 36px 28px;
+      transition: background .25s;
+      display: flex; flex-direction: column; justify-content: space-between;
+      aspect-ratio: 1/1;
+      position: relative;
+      overflow: hidden;
+    }
+    .social__item:hover { background: var(--rust); color: var(--ink); }
+    .social__item:hover .social__handle { color: var(--ink); }
+    .social__plat {
+      font-family: 'Big Shoulders Stencil Display', sans-serif;
+      font-weight: 900; font-size: 36px; text-transform: uppercase; line-height: 0.9;
+    }
+    .social__handle {
+      font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      color: var(--ink-dim); letter-spacing: 0.1em;
+      transition: color .25s;
+    }
+    .social__arrow {
+      font-size: 32px; transition: transform .25s;
+    }
+    .social__item:hover .social__arrow { transform: translate(4px,-4px); }
+
+    .social__cta h2 { font-size: clamp(40px, 4.5vw, 64px); margin-bottom: 24px; }
+    .social__cta p { color: var(--ink-dim); margin-bottom: 24px; max-width: 36ch; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 110px; }
+      .hero__visual { aspect-ratio: 1/1; max-width: 380px; }
+      .about, .social { grid-template-columns: 1fr; }
+      .members__grid { grid-template-columns: repeat(2, 1fr); }
+      .date { grid-template-columns: 60px 1fr; gap: 16px; }
+      .date__city, .date__tags { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav__brand">
+    <img src="assets/logo.png" alt="InHate">
+    InHate
+  </a>
+  <div class="nav__links">
+    <a href="index.html" class="is-active">Início</a>
+    <a href="#contato">Contato</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div>
+    <div class="hero__meta">
+      <span class="pulse"></span>
+      <span>DESDE. 2023 — São Paulo, BR</span>
+      <span>·</span>
+      <span>Tributo</span>
+    </div>
+
+    <h1 class="hero__title">
+      <span>Inhate</span>
+      <span class="stroke">A dor</span>
+      <span class="rust">do Korn</span>
+      <span>vive aqui.</span>
+    </h1>
+
+    <p class="hero__sub">
+      Somos a <strong>InHate</strong>. Cinco corpos, sete cordas, e um único propósito:
+      ressuscitar o som que definiu o nu metal e levá-lo, gota a gota de suor, para
+      cada palco do Brasil. Tributo a <strong>Korn</strong>. Sem concessões.
+    </p>
+
+
+  </div>
+
+  <div class="hero__visual">
+    <span class="hero__corner tl">// 001</span>
+    <span class="hero__corner tr">SAMPLE_RATE: 96kHz</span>
+    <span class="hero__corner bl">DOWN_TUNED: A♭</span>
+    <span class="hero__corner br">SP — BR</span>
+    <img src="assets/logo.png" alt="InHate logo">
+  </div>
+
+  <div class="readout container">
+    <span><strong>01</strong> · status: ATIVO</span>
+    <span><strong>02</strong> · próx. show: 17.MAI</span>
+    <span><strong>03</strong> · vol: 11/10</span>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee__track">
+    <span>InHate</span><span class="dot"></span>
+    <span class="ghost">Korn Tribute</span><span class="dot"></span>
+    <span>Blind</span><span class="dot"></span>
+    <span class="ghost">Freak on a Leash</span><span class="dot"></span>
+    <span>Falling Away</span><span class="dot"></span>
+    <span class="ghost">Got the Life</span><span class="dot"></span>
+    <span>InHate</span><span class="dot"></span>
+    <span class="ghost">Korn Tribute</span><span class="dot"></span>
+    <span>Blind</span><span class="dot"></span>
+    <span class="ghost">Freak on a Leash</span><span class="dot"></span>
+    <span>Falling Away</span><span class="dot"></span>
+    <span class="ghost">Got the Life</span><span class="dot"></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="sobre">
+  <div class="container">
+    <div class="about">
+      <div>
+        <span class="eyebrow">001 / Quem Somos</span>
+        <h2>Cinco vozes,<br><span class="text-rust">um só grito.</span></h2>
+        <div class="about__stats">
+        </div>
+      </div>
+      <div>
+        <p >
+          A banda teve seu início em 2015, mas nessa época ainda não atuava como Korn, após 7 anos levantando a bandeira do mesmo tributo a banda decidiu que era o momento de se reinventar a alçar desafios novos e maiores, desde então, a formação passou por algumas alterações, com isso os percursores do projeto Elder de Sousa, Fabio Maciel e Zabryskie Freitas, analisaram o cenário atual das bandas cover/tributo, e perceberam que era preciso inovar, a ideia era pensar numa banda que trouxesse ainda mais energia para o shows, e exigisse o melhor de cada um de nós, foi aí que decidimos que Korn, seria uma excelente aposta, pois traria inovação e o renovo para a proposta da banda e engajaria ainda mais os fãs
+        </p>
+        <p>
+          A ideia da banda, é transmitir em seus shows, toda energia e agressividade que o Korn original traz, é também uma busca pela melhor experiência possível para os fãs de Korn, misturando: Sonoridade, performance e visual
+          A cada show que realizamos, nos preocupamos em oferecer o melhor para o quem nos acompanha e para isso, sempre ouvimos atentamente o todos elogios e críticas do público e das casas de shows por onde passamos.
+        </p>
+        <p class="about__lead">
+          “A BANDA TEM GANHADO CADA VEZ MAIS DESTAQUE NO CENÁRIO COVER, GRAÇAS AS SUAS PERFOMANCES, QUE TORNAM CADA SHOW UMA EXPERIÊNCIA ÚNICA”
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="members__head">
+      <div>
+        <span class="eyebrow">002 / Os Cinco</span>
+        <h2>A formação.</h2>
+      </div>
+      <p>Cinco músicos. Uma única missão. Honrar cada nota, cada grito, cada silêncio.</p>
+    </div>
+
+    <div class="members__grid">
+      <div class="member">
+        <div class="member__portrait"><img src="assets/members/elder.jpg" alt="Elder de Sousa"></div>
+        <div class="member__num">// 01</div>
+        <div class="member__info">
+          <div class="member__name">Elder<br>de Sousa</div>
+          <div class="member__role">Vocal</div>
+          <a href="https://instagram.com/_cruelder" target="_blank" class="member__ig">@_cruelder</a>
+        </div>
+      </div>
+      <div class="member">
+        <div class="member__portrait"><img src="assets/members/zabryskie.jpg" alt="Zabryskie Freitas"></div>
+        <div class="member__num">// 02</div>
+        <div class="member__info">
+          <div class="member__name">Zabryskie<br>Freitas</div>
+          <div class="member__role">Baixo</div>
+          <a href="https://instagram.com/zabryskie" target="_blank" class="member__ig">@zabryskie</a>
+        </div>
+      </div>
+      <div class="member">
+        <div class="member__portrait"><img src="assets/members/fabiomaciel.jpg" alt="Fabio Maciel"></div>
+        <div class="member__num">// 03</div>
+        <div class="member__info">
+          <div class="member__name">Fabio<br>Maciel</div>
+          <div class="member__role">Guitarra</div>
+          <a href="https://instagram.com/fabiomaciels" target="_blank" class="member__ig">@fabiomaciels</a>
+        </div>
+      </div>
+      <div class="member">
+        <div class="member__portrait"><img src="assets/members/bruno.jpg" alt="Bruno Theodoro"></div>
+        <div class="member__num">// 04</div>
+        <div class="member__info">
+          <div class="member__name">Bruno<br>Theodoro</div>
+          <div class="member__role">Guitarra</div>
+          <a href="https://instagram.com/brunodtheodoro" target="_blank" class="member__ig">@brunodtheodoro</a>
+        </div>
+      </div>
+      <div class="member">
+        <div class="member__portrait"><img src="assets/members/john.jpg" alt="John"></div>
+        <div class="member__num">// 05</div>
+        <div class="member__info">
+          <div class="member__name">John</div>
+          <div class="member__role">Bateria</div>
+          <a href="https://instagram.com/marcelo_roggero" target="_blank" class="member__ig">@marcelo_roggero</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATES -->
+<section class="section" id="agenda">
+  <div class="container">
+    <div class="dates__head">
+      <div>
+        <span class="eyebrow">003 / Próximos Shows</span>
+        <h2>Onde vamos<br>te <span class="text-rust">destruir</span>.</h2>
+      </div>
+    </div>
+
+    <div class="dates__list"></div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="section section--alt" id="contato">
+  <div class="container">
+    <span class="eyebrow" style="margin-bottom:32px;display:flex;">004 / Conecte-se</span>
+    <div class="social">
+      <div class="social__cta">
+        <h2>Não solte<br>a corda.</h2>
+        <p>
+          Siga a InHate nos canais oficiais para receber datas em primeira mão,
+          bastidores, prévias de setlist e o ocasional cover ao vivo no nosso porão.
+        </p>
+        <p class="text-dim mono" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;">
+          contato@inhateband.com
+        </p>
+      </div>
+      <div class="social__grid">
+        <a class="social__item" target="_blank"href="https://www.instagram.com/inhatekorntribute/">
+          <div>
+            <div class="social__plat">Instagram</div>
+            <div class="social__handle">@inhatekorntribute</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:end;">
+            <span class="mono" style="font-size:11px;letter-spacing:0.2em;">#</span>
+            <span class="social__arrow">↗</span>
+          </div>
+        </a>
+        <a class="social__item" target="_blank" href="https://www.facebook.com/inhateband">
+          <div>
+            <div class="social__plat">Facebook</div>
+            <div class="social__handle">/inhatekorntribute</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:end;">
+            <span class="mono" style="font-size:11px;letter-spacing:0.2em;">#</span>
+            <span class="social__arrow">↗</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <img src="assets/logo.png" alt="InHate">
+      <p>Tributo brasileiro a Korn. Sem afiliação oficial com a banda original. Feito por fãs, para fãs.</p>
+    </div>
+    <div class="footer__col">
+      <h4></h4>
+      <ul>
+
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>// Social</h4>
+      <ul>
+        <li><a target="_blank" href="https://www.instagram.com/inhatekorntribute/">Instagram</a></li>
+        <li><a target="_blank" href="https://www.facebook.com/inhateband">Facebook</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>// Contato</h4>
+      <ul>
+        <li><a href="mailto:contato@inhateband.com">contato@inhateband.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 InHate · Todos os Direitos Reservados</span>
+    <span>Feito em SP · com sangue, suor e distorção</span>
+  </div>
+</footer>
+
+<script src="shows.js"></script>
+<script src="shows-render.js"></script>
+</body>
+</html>
